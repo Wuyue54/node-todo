@@ -7,4 +7,4 @@ Below is some modification I made for this project.
 
 3. Add ng-filter 'currency' to the price and total price. Then the interface will automatically add the $ before the price. 
 
-4. Add ng-if to the ui compenent of total price. Then if there is no food on the list, the total price compenent will hide. Only when there is food on the list that part will appeare. 
+4. Add ng-if to the UI compenent of total price part. Then if there is no food on the list, the total price compenent will hide. Only when there is food on the list that part will appeare. 

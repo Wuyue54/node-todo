@@ -46,7 +46,6 @@ angular.module('foodController', [])
 		// DELETE ==================================================================
 		// delete a food after checking it
 		$scope.deleteFood = function(id) {
-
 			$scope.loading = true;
 			Foods.delete(id)
 			// if successful creation, call our get function to get all the new foods
