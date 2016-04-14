@@ -1,50 +1,63 @@
-angular.module('todoController', [])
+angular.module('foodController', [])
 
-	// inject the Todo service factory into our controller
-	.controller('mainController', ['$scope','$http','Todos', function($scope, $http, Todos) {
+	// inject the Food service factory into our controller
+	.controller('mainController', ['$scope','$http','Foods', function($scope, $http, Foods) {
 		$scope.formData = {};
 		$scope.loading = true;
 
 		// GET =====================================================================
-		// when landing on the page, get all todos and show them
-		// use the service to get all the todos
-		Todos.get()
+		// when landing on the page, get all foods and show them
+		// use the service to get all the foods
+		Foods.get()
 			.success(function(data) {
-				$scope.todos = data;
+				$scope.foods = data;
 				$scope.loading = false;
+				// update total price after creating new food
+				Foods.getTotal().success(function(data){
+					$scope.totalPrice =data.substring(1,data.length-1); // remove the "" because the response data is in "3.2" format
+				});
 			});
 
 		// CREATE ==================================================================
-		// when submitting the add form, send the text to the node API
-		$scope.createTodo = function() {
+		// when submitting the add form, send the name and price to the node API
+		$scope.addFood = function() {
 
 			// validate the formData to make sure that something is there
 			// if form is empty, nothing will happen
-			if ($scope.formData.text != undefined) {
+			if ($scope.formData.name != undefined&&$scope.formData.price!=undefined) {
 				$scope.loading = true;
 
 				// call the create function from our service (returns a promise object)
-				Todos.create($scope.formData)
+				Foods.create($scope.formData)
 
-					// if successful creation, call our get function to get all the new todos
+					// if successful creation, call our get function to get all the new foods
 					.success(function(data) {
 						$scope.loading = false;
 						$scope.formData = {}; // clear the form so our user is ready to enter another
-						$scope.todos = data; // assign our new list of todos
+						$scope.foods = data; // assign our new list of foods
+						// update total price after creating new food
+						Foods.getTotal().success(function(data){
+							$scope.totalPrice =data.substring(1,data.length-1);
+						});
 					});
 			}
 		};
 
 		// DELETE ==================================================================
-		// delete a todo after checking it
-		$scope.deleteTodo = function(id) {
-			$scope.loading = true;
+		// delete a food after checking it
+		$scope.deleteFood = function(id) {
 
-			Todos.delete(id)
-				// if successful creation, call our get function to get all the new todos
-				.success(function(data) {
-					$scope.loading = false;
-					$scope.todos = data; // assign our new list of todos
+			$scope.loading = true;
+			Foods.delete(id)
+			// if successful creation, call our get function to get all the new foods
+			.success(function(data) {
+				$scope.loading = false;
+				$scope.foods = data; // assign our new list of foods
+				// update total price after creating new food
+				Foods.getTotal().success(function(data){
+					$scope.totalPrice =data.substring(1,data.length-1);
 				});
+			});
+			
 		};
 	}]);

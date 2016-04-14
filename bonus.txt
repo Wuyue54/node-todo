@@ -1,0 +1,10 @@
+Below is some modification I made for this project.
+
+1. Add require for the input form using "require" provided by Angular.
+   It is a good user experience to prevent error before action taken place. So validate the input before submit is important.
+
+2. Modify the UI of the food list. Make it a list using the style provided by Bootstrap. Move the delet button to the right side because the action part should always be on the right side of the list and users are familiar with that. Change the delet button to red color.
+
+3. Add ng-filter 'currency' to the price and total price. Then the interface will automatically add the $ before the price. 
+
+4. Add ng-if to the ui compenent of total price. Then if there is no food on the list, the total price compenent will hide. Only when there is food on the list that part will appeare. 
